@@ -1,5 +1,7 @@
 <template>
-<nav></nav>
+<nav>
+    
+</nav>
 </template>
 
 <script>
