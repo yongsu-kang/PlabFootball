@@ -1,7 +1,7 @@
 <template>
 <h2>Stadium Create Component</h2>
 <div class="stadium-create-container">
-    <form>
+    <form @submit.prevent="createStadium">
         <div class="form-group">
             <label for="name">경기장 이름</label>
             <input v-model="name" type="text" id="name" required />
@@ -10,7 +10,33 @@
             <label for="location">경기장 주소</label>
             <input v-model="location" type="text" id="location" required />
         </div>
-        <button type="submit">회원가입</button>
+        <div class="form-group">
+            <label for="parking">주차장 {{parking}}</label>
+            <input type="checkbox" v-model="parking" id="parking" />
+        </div>
+        <div class="form-group">
+            <label for="toilet">화장실 {{toilet}}</label>
+            <input type="checkbox" v-model="toilet" id="toilet" />
+        </div>
+        <div class="form-group">
+            <label for="vest">조끼 {{vest}}</label>
+            <input type="checkbox" v-model="vest" id="vest" />
+        </div>
+        <div class="form-group">
+            <label for="ball">공대여 {{ball}}</label>
+            <input type="checkbox" v-model="ball" id="ball" />
+        </div>
+        <div class="form-group">
+            <label for="region">지역</label>
+            <select v-model="region" id="region">
+                <option value="">선택하세요</option>
+                <option value="1">경기장1</option>
+                <option value="2">경기장2</option>
+                <option value="3">경기장3</option>
+                <option value="4">경기장4</option>
+            </select>
+        </div>
+        <button type="submit">경기장 등록</button>
     </form>
 </div>
 </template>
@@ -23,9 +49,34 @@ export default {
         return {
             name: '',
             location: '',
-            errorMessage: ''
+            parking: false,
+            toilet: false,
+            vest: false,
+            ball: false,
+            region: 'SEOUL',
         }
-    }
+    },
+    methods: {
+        async createStadium() {
+            const stadiumData = {
+                name: this.name,
+                location: this.location,
+                parking: this.parking,
+                toilet: this.toilet,
+                vest: this.vest,
+                ball: this.ball,
+                region: this.region,
+            };
+            console.log(stadiumData);
+            try {
+                const response = await axios.post('http://localhost:8080/api/stadiums', stadiumData);
+                console.log(response);
+            } catch (error) {
+                this.errorMessage = error.response.data.message;
+                console.error(error);
+            }
+        },
+    },
 }
 </script>
 

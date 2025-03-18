@@ -9,6 +9,8 @@
     <RouterLink to="/about">About</RouterLink>
     <a> | </a>
     <RouterLink to="/stadiums/add">Stadium Add</RouterLink>
+    <a> | </a>
+    <RouterLink to="/signup">Sign Up</RouterLink>
 </nav>
 <main>
     <RouterView />
